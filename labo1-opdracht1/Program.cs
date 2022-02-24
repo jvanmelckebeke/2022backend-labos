@@ -1,10 +1,16 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using labo1_opdracht1.Models;
 using labo1_opdracht1.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<WineValidator>());
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+app.MapSwagger();
+app.UseSwaggerUI();
 
 var wines = new List<Wine>
 {
@@ -43,9 +49,9 @@ app.MapGet("/wines/{wineId}", (int wineId) =>
 
 app.MapGet("/wines", () => Results.Ok(wines));
 
-app.MapPost("/wines", (Wine wine) =>
+app.MapPost("/wines", (IValidator<Wine> validator, Wine wine) =>
 {
-    var validationResult = new WineValidator().Validate(wine);
+    var validationResult = validator.Validate(wine);
     if (validationResult.IsValid)
     {
         wine.WineId = wines.Count + 1;

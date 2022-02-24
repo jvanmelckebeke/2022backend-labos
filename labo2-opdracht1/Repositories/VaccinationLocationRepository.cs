@@ -1,4 +1,8 @@
+using System.Globalization;
+using CsvHelper;
+using labo2_opdracht1.Configuration;
 using labo2_opdracht1.Models;
+using Microsoft.Extensions.Options;
 
 namespace labo2_opdracht1.Repositories;
 
@@ -31,5 +35,24 @@ public class VaccinationLocationRepository : IVaccinationLocationRepository
     public List<VaccinationLocation> GetLocations()
     {
         return _locations.ToList<VaccinationLocation>();
+    }
+}
+
+public class CsvVaccinationLocationRepository : IVaccinationLocationRepository
+{
+    private ICsvRepository<VaccinationLocation> _csvRepository;
+    private string _location;
+
+    public CsvVaccinationLocationRepository(
+        IOptions<CsvConfig> csvSettings,
+        ICsvRepository<VaccinationLocation> csvRepository)
+    {
+        _csvRepository = csvRepository;
+        _location = csvSettings.Value.LocationPath;
+    }
+
+    public List<VaccinationLocation> GetLocations()
+    {
+        return _csvRepository.ReadRecordsFromCsv(_location);
     }
 }

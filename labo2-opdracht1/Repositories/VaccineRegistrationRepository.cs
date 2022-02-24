@@ -1,4 +1,9 @@
+using System.Collections;
+using System.Globalization;
+using CsvHelper;
+using labo2_opdracht1.Configuration;
 using labo2_opdracht1.Models;
+using Microsoft.Extensions.Options;
 
 namespace labo2_opdracht1.Repositories;
 
@@ -50,6 +55,32 @@ public class VaccineRegistrationRepository : IVaccineRegistrationRepository
     public VaccineRegistration AddRegistration(VaccineRegistration registration)
     {
         _registrations.Add(registration);
+
+        return registration;
+    }
+}
+
+public class CsvVaccineRegistrationRepository : IVaccineRegistrationRepository
+{
+    private ICsvRepository<VaccineRegistration> _csvRepository;
+    private string _location;
+
+    public CsvVaccineRegistrationRepository(
+        IOptions<CsvConfig> csvSettings,
+        ICsvRepository<VaccineRegistration> csvRepository)
+    {
+        _location = csvSettings.Value.RegistrationsPath;
+        _csvRepository = csvRepository;
+    }
+
+    public List<VaccineRegistration> GetRegistrations()
+    {
+        return _csvRepository.ReadRecordsFromCsv("csv/Registrations.csv");
+    }
+
+    public VaccineRegistration AddRegistration(VaccineRegistration registration)
+    {
+        _csvRepository.AddRecordToCsv("csv/Registrations.csv", registration);
 
         return registration;
     }

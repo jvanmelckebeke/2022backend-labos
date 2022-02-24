@@ -1,7 +1,9 @@
 using System.Diagnostics;
+using System.Globalization;
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using labo2_opdracht1.Configuration;
 using labo2_opdracht1.DTO;
 using labo2_opdracht1.Models;
 using labo2_opdracht1.Repositories;
@@ -9,14 +11,24 @@ using labo2_opdracht1.Services;
 using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddTransient<IVaccinationLocationRepository, VaccinationLocationRepository>();
-builder.Services.AddTransient<IVaccineTypeRepository, VaccineTypeRepository>();
-builder.Services.AddTransient<IVaccineRegistrationRepository, VaccineRegistrationRepository>();
+
+var csvSettings = builder.Configuration.GetSection("CsvConfig");
+
+builder.Services.Configure<CsvConfig>(csvSettings);
+
+builder.Services.AddTransient<IVaccinationLocationRepository, CsvVaccinationLocationRepository>();
+builder.Services.AddTransient<IVaccineTypeRepository, CsvVaccineTypeRepository>();
+builder.Services.AddTransient<IVaccineRegistrationRepository, CsvVaccineRegistrationRepository>();
 builder.Services.AddTransient<IVaccinationService, VaccinationService>();
+
+builder.Services.AddTransient<ICsvRepository<VaccineType>, CsvRepository<VaccineType>>();
+builder.Services.AddTransient<ICsvRepository<VaccineRegistration>, CsvRepository<VaccineRegistration>>();
+builder.Services.AddTransient<ICsvRepository<VaccinationLocation>, CsvRepository<VaccinationLocation>>();
 
 builder.Services.AddFluentValidation(fv =>
     fv.RegisterValidatorsFromAssemblyContaining<VaccineRegistrationRepository>());
 builder.Services.AddAutoMapper(typeof(Program));
+
 
 
 var app = builder.Build();

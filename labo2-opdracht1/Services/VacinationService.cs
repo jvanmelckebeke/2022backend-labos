@@ -29,6 +29,7 @@ public class VaccinationService : IVaccinationService
 
     public VaccineRegistration AddRegistration(VaccineRegistration registration)
     {
+        registration.VaccineRegistrationId = Guid.NewGuid();
         return _registrationRepository.AddRegistration(registration);
     }
 

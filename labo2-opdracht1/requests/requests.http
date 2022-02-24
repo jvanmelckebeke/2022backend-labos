@@ -31,8 +31,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Trump",
-  "firstName": "Donald",
+  "name": "Test",
+  "firstName": "Test",
   "email": "donald@maga.eu",
   "yearOfBirth": 1952,
   "vaccinationDate": "1/1/2022",

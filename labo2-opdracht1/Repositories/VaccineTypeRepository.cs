@@ -1,4 +1,9 @@
+using System.Globalization;
+using CsvHelper;
+using CsvHelper.Configuration;
+using labo2_opdracht1.Configuration;
 using labo2_opdracht1.Models;
+using Microsoft.Extensions.Options;
 
 namespace labo2_opdracht1.Repositories;
 
@@ -16,7 +21,7 @@ public class VaccineTypeRepository : IVaccineTypeRepository
         if (!(_vaccineTypes.Any()))
         {
             _vaccineTypes.AddRange(
-                new []
+                new[]
                 {
                     new VaccineType
                     {
@@ -35,5 +40,23 @@ public class VaccineTypeRepository : IVaccineTypeRepository
     public List<VaccineType> GetVaccineTypes()
     {
         return _vaccineTypes.ToList<VaccineType>();
+    }
+}
+
+public class CsvVaccineTypeRepository : IVaccineTypeRepository
+{
+    private ICsvRepository<VaccineType> _csvRepository;
+
+    private string _location;
+
+    public CsvVaccineTypeRepository(IOptions<CsvConfig> csvSettings, ICsvRepository<VaccineType> csvRepository)
+    {
+        _csvRepository = csvRepository;
+        _location = csvSettings.Value.VaccinsPath;
+    }
+
+    public List<VaccineType> GetVaccineTypes()
+    {
+        return _csvRepository.ReadRecordsFromCsv(_location);
     }
 }

@@ -75,12 +75,12 @@ public class CsvVaccineRegistrationRepository : IVaccineRegistrationRepository
 
     public List<VaccineRegistration> GetRegistrations()
     {
-        return _csvRepository.ReadRecordsFromCsv("csv/Registrations.csv");
+        return _csvRepository.ReadRecordsFromCsv(_location);
     }
 
     public VaccineRegistration AddRegistration(VaccineRegistration registration)
     {
-        _csvRepository.AddRecordToCsv("csv/Registrations.csv", registration);
+        _csvRepository.AddRecordToCsv(_location, registration);
 
         return registration;
     }

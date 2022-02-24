@@ -7,4 +7,8 @@
     <RootNamespace>labo1_opdracht1</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+  </ItemGroup>
+
 </Project>

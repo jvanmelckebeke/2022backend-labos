@@ -1,0 +1,46 @@
+GET http://localhost:3000/locations HTTP/1.1
+Accept: application/json
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+###
+GET http://localhost:3000/registrations HTTP/1.1
+Accept: application/json
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+
+###
+GET http://localhost:3000/vaccines HTTP/1.1
+Accept: application/json
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});%}
+
+###
+POST http://localhost:3000/registrations HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Trump",
+  "firstName": "Donald",
+  "email": "donald@maga.eu",
+  "yearOfBirth": 1952,
+  "vaccinationDate": "1/1/2022",
+  "vaccineTypeId": "4e2a72fb-f4fa-416f-87cd-ea338b518519",
+  "vaccinationLocationId": "0bb537ea-8209-422f-a9e1-2c1e37d0cb4d"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});%}

@@ -1,6 +1,9 @@
+using FluentValidation.AspNetCore;
 using labo1_opdracht1.Models;
+using labo1_opdracht1.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<WineValidator>());
 var app = builder.Build();
 
 var wines = new List<Wine>
@@ -42,9 +45,18 @@ app.MapGet("/wines", () => Results.Ok(wines));
 
 app.MapPost("/wines", (Wine wine) =>
 {
-    wine.WineId = wines.Count + 1;
-    wines.Add(wine);
-    return Results.Created($"/wine/{wine.WineId}", wine);
+    var validationResult = new WineValidator().Validate(wine);
+    if (validationResult.IsValid)
+    {
+        wine.WineId = wines.Count + 1;
+        wines.Add(wine);
+        return Results.Created($"/wine/{wine.WineId}", wine);
+    }
+    else
+    {
+        var errors = validationResult.Errors.Select(x => new {errors = x.ErrorMessage});
+        return Results.BadRequest(errors);
+    }
 });
 
 app.MapDelete("/wines/{wineId}", (int wineId) =>
@@ -68,7 +80,7 @@ app.MapPut("/wines", (Wine wine) =>
     {
         return Results.NotFound();
     }
-    
+
     existingWine.Name = wine.Name;
     existingWine.Year = wine.Year;
 

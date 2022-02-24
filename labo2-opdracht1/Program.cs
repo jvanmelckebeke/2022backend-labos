@@ -30,7 +30,6 @@ builder.Services.AddFluentValidation(fv =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 
-
 var app = builder.Build();
 
 app.UseExceptionHandler(c => c.Run(async context =>
@@ -59,11 +58,7 @@ app.MapGet("/vaccines",
 app.MapGet("/registrations",
     (IMapper mapper, IVaccinationService vaccinationService) =>
     {
-        var mapped = mapper.Map<List<VaccineRegistrationDTO>>(vaccinationService.GetRegistrations(), opts =>
-        {
-            opts.Items["locations"] = vaccinationService.GetLocations();
-            opts.Items["vaccins"] = vaccinationService.GetVaccines();
-        });
+        var mapped = mapper.Map<List<VaccineRegistrationDTO>>(vaccinationService.GetRegistrations());
         return Results.Ok(mapped);
     });
 

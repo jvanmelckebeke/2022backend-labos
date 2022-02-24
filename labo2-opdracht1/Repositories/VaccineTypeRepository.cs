@@ -10,6 +10,8 @@ namespace labo2_opdracht1.Repositories;
 public interface IVaccineTypeRepository
 {
     List<VaccineType> GetVaccineTypes();
+
+    VaccineType GetOneByVaccineTypeId(Guid vaccineId);
 }
 
 public class VaccineTypeRepository : IVaccineTypeRepository
@@ -41,6 +43,11 @@ public class VaccineTypeRepository : IVaccineTypeRepository
     {
         return _vaccineTypes.ToList<VaccineType>();
     }
+
+    public VaccineType GetOneByVaccineTypeId(Guid vaccineId)
+    {
+        return GetVaccineTypes().Find(v => v.VaccineTypeId == vaccineId) ?? new VaccineType();
+    }
 }
 
 public class CsvVaccineTypeRepository : IVaccineTypeRepository
@@ -58,5 +65,10 @@ public class CsvVaccineTypeRepository : IVaccineTypeRepository
     public List<VaccineType> GetVaccineTypes()
     {
         return _csvRepository.ReadRecordsFromCsv(_location);
+    }
+    
+    public VaccineType GetOneByVaccineTypeId(Guid vaccineId)
+    {
+        return GetVaccineTypes().Find(v => v.VaccineTypeId == vaccineId) ?? new VaccineType();
     }
 }

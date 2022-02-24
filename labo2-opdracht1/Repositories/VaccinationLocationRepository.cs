@@ -9,6 +9,8 @@ namespace labo2_opdracht1.Repositories;
 public interface IVaccinationLocationRepository
 {
     List<VaccinationLocation> GetLocations();
+
+    VaccinationLocation FindOneByLocationId(Guid locationId);
 }
 
 public class VaccinationLocationRepository : IVaccinationLocationRepository
@@ -36,6 +38,11 @@ public class VaccinationLocationRepository : IVaccinationLocationRepository
     {
         return _locations.ToList<VaccinationLocation>();
     }
+
+    public VaccinationLocation FindOneByLocationId(Guid locationId)
+    {
+        return GetLocations().Find(l => l.VaccinationLocationId == locationId);
+    }
 }
 
 public class CsvVaccinationLocationRepository : IVaccinationLocationRepository
@@ -54,5 +61,10 @@ public class CsvVaccinationLocationRepository : IVaccinationLocationRepository
     public List<VaccinationLocation> GetLocations()
     {
         return _csvRepository.ReadRecordsFromCsv(_location);
+    }
+    
+    public VaccinationLocation FindOneByLocationId(Guid locationId)
+    {
+        return GetLocations().Find(l => l.VaccinationLocationId == locationId);
     }
 }

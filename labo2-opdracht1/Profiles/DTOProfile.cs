@@ -1,26 +1,37 @@
 using AutoMapper;
 using labo2_opdracht1.DTO;
 using labo2_opdracht1.Models;
+using labo2_opdracht1.Services;
 
 namespace labo2_opdracht1.Profiles;
 
 public class VaccinLocationResolver : IValueResolver<VaccineRegistration, VaccineRegistrationDTO, string>
 {
+    private IVaccinationService _vaccinationService;
+    public VaccinLocationResolver(IVaccinationService vaccinationService)
+    {
+        _vaccinationService = vaccinationService;
+    }
+    
     public string Resolve(VaccineRegistration source, VaccineRegistrationDTO destination, string dest,
         ResolutionContext context)
     {
-        List<VaccinationLocation> locations = context.Items["locations"] as List<VaccinationLocation>;
-        return locations.Single(l => l.VaccinationLocationId == source.VaccinationLocationId).Name;
+        return _vaccinationService.GetVaccineById(source.VaccinationLocationId).Name;
     }
 }
 
 public class VaccinResolver : IValueResolver<VaccineRegistration, VaccineRegistrationDTO, string>
 {
+    private IVaccinationService _vaccinationService;
+    
+    public VaccinResolver(IVaccinationService vaccinationService)
+    {
+        _vaccinationService = vaccinationService;
+    }
     public string Resolve(VaccineRegistration source, VaccineRegistrationDTO destination, string dest,
         ResolutionContext context)
     {
-        List<VaccineType> vaccins = context.Items["vaccins"] as List<VaccineType>;
-        return vaccins.Single(l => l.VaccineTypeId == source.VaccineTypeId).Name;
+        return _vaccinationService.GetVaccineById(source.VaccineTypeId).Name;
     }
 }
 

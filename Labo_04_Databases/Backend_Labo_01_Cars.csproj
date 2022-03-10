@@ -7,6 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DotNetCore.MongoDB" Version="16.23.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.0-preview.11" />
+    <PackageReference Include="HotChocolate.Data" Version="13.0.0-preview.11" />
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>

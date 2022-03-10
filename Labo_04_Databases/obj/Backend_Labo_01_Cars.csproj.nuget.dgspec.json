@@ -42,6 +42,14 @@
               "target": "Package",
               "version": "[16.23.0, )"
             },
+            "HotChocolate.AspNetCore": {
+              "target": "Package",
+              "version": "[13.0.0-preview.11, )"
+            },
+            "HotChocolate.Data": {
+              "target": "Package",
+              "version": "[13.0.0-preview.11, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.15.0, )"

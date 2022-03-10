@@ -1,9 +1,3 @@
-using Backend_Labo_01_Cars.Configuration;
-using Backend_Labo_01_Cars.DataContext;
-using Backend_Labo_01_Cars.Repositories;
-using Backend_Labo_01_Cars.Services;
-using MongoContext = Backend_Labo_01_Cars.DataContext.MongoContext;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var mongoSettings = builder.Configuration.GetSection("MongoConnection");
@@ -18,7 +12,19 @@ builder.Services.AddTransient<ICarRepository, CarRepository>();
 
 builder.Services.AddTransient<ICarService, CarService>();
 
+builder.Services
+    .AddGraphQLServer()
+    .AddFiltering()
+    .AddSorting()
+    .AddType<BrandType>()
+    .AddMutationType<Mutations>()
+    .AddQueryType<Queries>()
+    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+
+
 var app = builder.Build();
+app.MapGraphQL();
+
 app.MapGet("/", () => "Hello World");
 
 app.MapGet("/setup", async (ICarService service) =>
@@ -57,4 +63,4 @@ app.MapGet("/brands/{id}", async (ICarService service, string id) =>
 });
 
 //GraphQL.SchemaExtensions.RegisterTypeMapping<Brand,BrandType>();
-app.Run("http://localhost:3000");
+app.Run("http://0.0.0.0:3000");

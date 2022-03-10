@@ -7,6 +7,8 @@ public interface ICarRepository
     Task<Car> GetCar(string id);
 
     Task<List<Car>> GetAllCars();
+    Task<List<Car>> GetCarsByBrandId(string brandId);
+    Task<Car> UpdateCar(Car car);
 }
 
 public class CarRepository : ICarRepository
@@ -35,5 +37,20 @@ public class CarRepository : ICarRepository
     public async Task<List<Car>> GetAllCars()
     {
         return await _collection.Find(car => true).ToListAsync();
+    }
+
+    public async Task<List<Car>> GetCarsByBrandId(string brandId)
+    {
+        return await _collection.Find(c => c.Brand.Id == brandId).ToListAsync();
+    }
+
+    public async Task<Car> UpdateCar(Car car)
+    {
+        var filter = Builders<Car>.Filter.Eq("Id", car.Id);
+        var update = Builders<Car>.Update
+            .Set("Name", car.Name);
+
+        var result = await _collection.UpdateOneAsync(filter, update);
+        return await GetCar(car.Id);
     }
 }

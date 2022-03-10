@@ -1,6 +1,6 @@
 namespace Backend_Labo_01_Cars.Services;
 
-interface ICarService
+public interface ICarService
 {
     Task SetupDummyData();
 
@@ -9,9 +9,13 @@ interface ICarService
 
     Task<List<Brand>> GetBrands();
     Task<Brand> GetBrand(string id);
+    Task<Brand> UpdateBrand(Brand oldBrand);
 
     Task<Car> AddCar(Car car);
     Task<Brand> AddBrand(Brand brand);
+    Task<List<Car>> GetCarsByBrand(string brandId);
+    Task DeleteBrand(string brandId);
+    Task<Car> UpdateCar(Car car);
 }
 
 public class CarService : ICarService
@@ -109,6 +113,11 @@ public class CarService : ICarService
         return await _brandRepository.GetBrand(id);
     }
 
+    public async Task<Brand> UpdateBrand(Brand oldBrand)
+    {
+        return await _brandRepository.UpdateBrand(oldBrand);
+    }
+
     public async Task<Car> AddCar(Car car)
     {
         return await _carRepository.AddCar(car);
@@ -117,5 +126,20 @@ public class CarService : ICarService
     public async Task<Brand> AddBrand(Brand brand)
     {
         return await _brandRepository.AddBrand(brand);
+    }
+
+    public async Task<List<Car>> GetCarsByBrand(string brandId)
+    {
+        return await _carRepository.GetCarsByBrandId(brandId);
+    }
+
+    public async Task DeleteBrand(string brandId)
+    {
+        await _brandRepository.DeleteBrand(brandId);
+    }
+
+    public async Task<Car> UpdateCar(Car car)
+    {
+        return await _carRepository.UpdateCar(car);
     }
 }

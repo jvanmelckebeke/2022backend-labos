@@ -11,6 +11,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - /tmp/mongodata:/data/db
+  application:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
   
 #  mongo-express:
 #    image: mongo-express

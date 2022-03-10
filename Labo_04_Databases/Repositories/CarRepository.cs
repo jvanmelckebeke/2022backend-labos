@@ -1,12 +1,6 @@
-using Backend_Labo_01_Cars.Models;
-using DotNetCore.MongoDB;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using MongoContext = Backend_Labo_01_Cars.DataContext.MongoContext;
-
 namespace Backend_Labo_01_Cars.Repositories;
 
-interface ICarRepository
+public interface ICarRepository
 {
     Task<Car> AddCar(Car car);
 
@@ -17,10 +11,10 @@ interface ICarRepository
 
 public class CarRepository : ICarRepository
 {
-    private readonly MongoContext _mongoContext;
+    private readonly IMongoContext _mongoContext;
     private readonly IMongoCollection<Car> _collection;
 
-    public CarRepository(MongoContext mongoContext)
+    public CarRepository(IMongoContext mongoContext)
     {
         _mongoContext = mongoContext;
         _collection = _mongoContext.CarsCollection;
@@ -28,17 +22,18 @@ public class CarRepository : ICarRepository
 
     public async Task<Car> AddCar(Car car)
     {
+        car.CreatedOn = DateTime.Now;
         await _collection.InsertOneAsync(car);
         return car;
     }
 
     public async Task<Car> GetCar(string id)
     {
-        return (await _collection.FindAsync(car => car.Id == id)).First();
+        return await _collection.Find(car => car.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task<List<Car>> GetAllCars()
     {
-        return (await _collection.FindAsync(car => true)).ToList();
+        return await _collection.Find(car => true).ToListAsync();
     }
 }

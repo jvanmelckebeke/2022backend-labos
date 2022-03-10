@@ -1,10 +1,15 @@
-using Backend_Labo_01_Cars.Configuration;
-using Backend_Labo_01_Cars.Models;
-using DotNetCore.MongoDB;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-
 namespace Backend_Labo_01_Cars.DataContext;
+
+public interface IMongoContext
+{
+    IMongoClient Client { get; }
+
+    IMongoDatabase Database { get; }
+
+    IMongoCollection<Car> CarsCollection { get; }
+
+    IMongoCollection<Brand> BrandsCollection { get; }
+}
 
 public class MongoContext : IMongoContext
 {

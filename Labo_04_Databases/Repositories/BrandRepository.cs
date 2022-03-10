@@ -1,26 +1,24 @@
-using Backend_Labo_01_Cars.DataContext;
-using Backend_Labo_01_Cars.Models;
-using MongoDB.Driver;
-
 namespace Backend_Labo_01_Cars.Repositories;
 
-interface IBrandRepository
+public interface IBrandRepository
 {
     Task<Brand> GetBrand(string id);
 
-    Task<List<Brand>> GetBrands();
+    Task<List<Brand>> GetAllBrands();
 
     Task<Brand> AddBrand(Brand brand);
 
-    Brand UpdateBrand(Brand brand);
+    Task<Brand> UpdateBrand(Brand brand);
+
+    Task DeleteBrand(string id);
 }
 
 public class BrandRepository : IBrandRepository
 {
-    private readonly MongoContext _mongoContext;
+    private readonly IMongoContext _mongoContext;
     private readonly IMongoCollection<Brand> _collection;
 
-    public BrandRepository(MongoContext mongoContext)
+    public BrandRepository(IMongoContext mongoContext)
     {
         _mongoContext = mongoContext;
         _collection = _mongoContext.BrandsCollection;
@@ -28,22 +26,43 @@ public class BrandRepository : IBrandRepository
 
     public async Task<Brand> GetBrand(string id)
     {
-        return (await _collection.FindAsync(brand => brand.Id == id)).First();
+        return await _collection.Find(brand => brand.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<List<Brand>> GetBrands()
+    public async Task<List<Brand>> GetAllBrands()
     {
-        return (await _collection.FindAsync(brand => true)).ToList();
+        return await _collection.Find(brand => true).ToListAsync();
     }
 
     public async Task<Brand> AddBrand(Brand brand)
     {
+        brand.CreatedOn = DateTime.Now;
         await _collection.InsertOneAsync(brand);
         return brand;
     }
 
-    public Brand UpdateBrand(Brand brand)
+    public async Task DeleteBrand(string id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _collection.DeleteOneAsync(brand => brand.Id == id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<Brand> UpdateBrand(Brand brand)
+    {
+        var filter = Builders<Brand>.Filter.Eq("Id", brand.Id);
+        var update = Builders<Brand>.Update
+            .Set("Country", brand.Country)
+            .Set("Name", brand.Name)
+            .Set("Logo", brand.Logo);
+
+        var result = await _collection.UpdateOneAsync(filter, update);
+        return await GetBrand(brand.Id);
     }
 }

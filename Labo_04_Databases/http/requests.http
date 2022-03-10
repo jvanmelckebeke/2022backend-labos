@@ -1,0 +1,33 @@
+GET http://localhost:3000/setup HTTP/1.1
+
+###
+GET http://localhost:3000/brands HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:3000/cars HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost:3000/cars HTTP/1.1
+Content-Type: application/json
+
+{
+    "Name" : "ID.Buzz",
+    "Brand" : {
+    "id": "62138bfcbd6da692308c77a7",
+    "name": "Volkswagen",
+    "country": "Germany",
+    "logo": null,
+    "createdOn": "2022-02-21T12:56:27.991Z"
+  }
+}
+
+###
+POST http://localhost:3000/brands HTTP/1.1
+Content-Type: application/json
+
+{
+    "Name" : "Nio", 
+    "Country": "China"
+}

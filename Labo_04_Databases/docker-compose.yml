@@ -12,11 +12,12 @@ services:
     volumes:
       - /tmp/mongodata:/data/db
   application:
-    build: .
+    build: 
+      context: .
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - ./appsettings.Docker.json:/app/appsettings.json
   
 #  mongo-express:
 #    image: mongo-express

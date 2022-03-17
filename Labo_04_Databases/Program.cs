@@ -1,3 +1,5 @@
+using Backend_Labo_01_Cars.GraphQL.Cars;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var mongoSettings = builder.Configuration.GetSection("MongoConnection");
@@ -17,6 +19,7 @@ builder.Services
     .AddFiltering()
     .AddSorting()
     .AddType<BrandType>()
+    .AddType<CarType>()
     .AddMutationType<Mutations>()
     .AddQueryType<Queries>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);

@@ -94,6 +94,7 @@ public class SneakerService : ISneakerService
         await _orderRepository.AddOrder(order);
 
         var sneaker = await GetSneakerBySneakerId(order.SneakerId);
+        
         sneaker.Stock -= order.NumberOfItems;
 
         await _sneakerRepository.UpdateSneaker(sneaker);

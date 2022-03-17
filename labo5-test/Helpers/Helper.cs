@@ -1,5 +1,6 @@
 using System.Linq;
 using labo5_sneakers.Repositories;
+using labo5_sneakers.Services;
 using labo5_test.Fakes.Repositories;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,5 +39,10 @@ public class Helper
             });
 
         return application;
+    }
+    
+    public static ISneakerService CreateSneakerService()
+    {
+        return CreateApi().Services.GetService<ISneakerService>();
     }
 }

@@ -65,6 +65,9 @@ app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sne
     return Results.BadRequest(errors);
 });
 
+app.MapPost("/orders",
+    async (ISneakerService service, Order order) => { return Results.Ok(await service.AddOrder(order)); });
+
 // app.Run("http://localhost:3000");
 
 

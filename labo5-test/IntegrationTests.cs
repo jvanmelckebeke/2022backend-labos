@@ -20,6 +20,7 @@ public class IntegrationTests
 
     Sneaker _sneakerValid = new()
     {
+        SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8c", 
         Name = "Pursuit",
         Price = new decimal(37.8),
         Stock = 500,
@@ -122,6 +123,25 @@ public class IntegrationTests
 
         var result = await _client.PostAsync("/sneakers", body);
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var resultBody = await result.Content.ReadAsStringAsync();
+        _testOutputHelper.WriteLine(result.ToString());
+        _testOutputHelper.WriteLine(resultBody);
+    }
+
+    [Fact]
+    public async Task Should_Place_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2,
+            SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8d"
+        };
+
+        HttpContent body = JsonContent.Create(order);
+
+        var result = await _client.PostAsync("/orders", body);
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         var resultBody = await result.Content.ReadAsStringAsync();
         _testOutputHelper.WriteLine(result.ToString());
         _testOutputHelper.WriteLine(resultBody);

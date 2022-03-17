@@ -9,24 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b90617d-18e0-45a6-b8c4-73068a776291" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Configuration/DatabaseSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Context/MongoContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/Brand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/Occasion.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/Order.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/Sneaker.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Repositories/BrandRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Repositories/OccasionRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Repositories/OrderRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Repositories/SneakerRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/SneakerService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Validators/SneakerValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +44,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.labo5-sneakers: IIS Express">
+  <component name="RunManager" selected=".NET Launch Settings Profile.labo5-sneakers: labo5_sneakers">
     <configuration name="labo5-sneakers: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/labo5-sneakers.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
@@ -98,7 +84,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647521448022</updated>
-      <workItem from="1647521452587" duration="2568000" />
+      <workItem from="1647521452587" duration="3252000" />
     </task>
     <servers />
   </component>
@@ -122,24 +108,5 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Program.cs</url>
-          <line>31</line>
-          <properties documentPath="$PROJECT_DIR$/Program.cs" initialLine="35" containingFunctionPresentation="">
-            <startOffsets>
-              <option value="1222" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1223" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

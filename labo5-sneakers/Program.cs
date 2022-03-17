@@ -62,3 +62,5 @@ app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sne
 });
 
 app.Run("http://localhost:3000");
+//Hack om testen te doen werken 
+// public partial class Program { }

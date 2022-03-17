@@ -1,0 +1,147 @@
+POST http://localhost:3000/sneakers
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "name": "Pursuit",
+  "price": 37.8,
+  "stock": 500,
+  "brand": {
+    "brandId": "62334349301e056f50c7fcc0",
+    "name": "SCOTT"
+  },
+  "occasions": [
+    {
+      "occasionId": "62334349301e056f50c7fcc1",
+      "description": "Sports"
+    },
+    {
+      "occasionId": "62334349301e056f50c7fcc2",
+      "description": "Casual"
+    }
+  ]
+}
+
+<> 2022-03-17T152055-1.201.json
+
+###
+
+GET http://localhost:3000/occasions
+Host: localhost:3000
+
+<> 2022-03-17T152055-2.200.json
+
+###
+
+GET http://localhost:3000/sneakers
+Host: localhost:3000
+
+<> 2022-03-17T152055-1.200.json
+
+###
+
+GET http://localhost:3000/brands
+Host: localhost:3000
+
+<> 2022-03-17T152055.200.json
+
+###
+
+GET http://localhost:3000/setup
+Host: localhost:3000
+
+<> 2022-03-17T152055.201.json
+
+###
+
+GET http://localhost:3000/occasions
+Host: localhost:3000
+
+<> 2022-03-17T151849-2.200.json
+
+###
+
+GET http://localhost:3000/sneakers
+Host: localhost:3000
+
+<> 2022-03-17T151849-1.200.json
+
+###
+
+GET http://localhost:3000/brands
+Host: localhost:3000
+
+<> 2022-03-17T151849.200.json
+
+###
+
+GET http://localhost:3000/setup
+Host: localhost:3000
+
+<> 2022-03-17T151849.201.json
+
+###
+
+GET http://localhost:3000/occasions
+Host: localhost:3000
+
+<> 2022-03-17T151759-2.200.json
+
+###
+
+GET http://localhost:3000/sneakers
+Host: localhost:3000
+
+<> 2022-03-17T151759-1.200.json
+
+###
+
+GET http://localhost:3000/brands
+Host: localhost:3000
+
+<> 2022-03-17T151759.200.json
+
+###
+
+GET http://localhost:3000/setup
+Host: localhost:3000
+
+<> 2022-03-17T151759.201.json
+
+###
+
+GET http://localhost:3000/brands
+Host: localhost:3000
+
+<> 2022-03-17T151741.200.json
+
+###
+
+GET http://localhost:3000/occasions
+Host: localhost:3000
+
+<> 2022-03-17T151726-1.200.json
+
+###
+
+GET http://localhost:3000/sneakers
+Host: localhost:3000
+
+<> 2022-03-17T151726.200.json
+
+###
+
+GET http://localhost:3000/brands
+Host: localhost:3000
+
+<> 2022-03-17T151725.200.json
+
+###
+
+GET http://localhost:3000/setup
+Host: localhost:3000
+
+<> 2022-03-17T151725.201.json
+
+###
+

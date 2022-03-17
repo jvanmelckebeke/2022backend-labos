@@ -43,7 +43,7 @@ public class SneakerService : ISneakerService
                 await _brandRepository.AddBrands(new List<Brand>()
                 {
                     new() {Name = "ASICS"}, new() {Name = "CONVERSE"}, new() {Name = "JORDAN"},
-                    new() {Name = "PUMA"}
+                    new() {Name = "PUMA"}, new() {Name = "SCOTT"}
                 });
 
             if (!(await _occasionRepository.GetOccasions()).Any())

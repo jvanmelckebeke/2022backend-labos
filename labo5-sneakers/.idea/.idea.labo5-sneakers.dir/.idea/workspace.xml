@@ -9,10 +9,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b90617d-18e0-45a6-b8c4-73068a776291" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/requests.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/.idea/.idea.labo5-test.dir/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/.idea/.idea.labo5-test.dir/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/.idea/.idea.labo5-test.dir/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/.idea/.idea.labo5-test.dir/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/.idea/.idea.labo5-test.dir/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/Fakes/Repositories/FakeBrandRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/Fakes/Repositories/FakeOccasionRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/Fakes/Repositories/FakeOrderRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/Fakes/Repositories/FakeSneakerRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/Helpers/Helper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/IntegrationTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/UnitTest1.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../labo5-test/labo5-test.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.labo5-sneakers.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/SneakerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/SneakerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +51,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../labo5-test" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -45,6 +60,12 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.labo5-sneakers: labo5_sneakers">
+    <configuration name="All in requests" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/http/requests.http">
+      <method v="2" />
+    </configuration>
+    <configuration name="requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/http/requests.http" index="2" requestIdentifier="#2" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="labo5-sneakers: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/labo5-sneakers.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
@@ -75,6 +96,12 @@
         <option name="Build" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.All in requests" />
+        <item itemvalue="HTTP Request.requests | #2" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -84,7 +111,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647521448022</updated>
-      <workItem from="1647521452587" duration="3252000" />
+      <workItem from="1647521452587" duration="3833000" />
+      <workItem from="1647525300137" duration="1572000" />
     </task>
     <servers />
   </component>
@@ -92,7 +120,7 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

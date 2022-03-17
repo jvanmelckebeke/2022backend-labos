@@ -1,0 +1,22 @@
+[
+  {
+    "sneakerId": "623343af301e056f50c7fcc5",
+    "name": "Pursuit",
+    "price": 37.8,
+    "stock": 500,
+    "brand": {
+      "brandId": "62334349301e056f50c7fcc0",
+      "name": "SCOTT"
+    },
+    "occasions": [
+      {
+        "occasionId": "62334349301e056f50c7fcc1",
+        "description": "Sports"
+      },
+      {
+        "occasionId": "62334349301e056f50c7fcc2",
+        "description": "Casual"
+      }
+    ]
+  }
+]

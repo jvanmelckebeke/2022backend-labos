@@ -11,4 +11,9 @@ public class Order
     public string? Email { get; set; }
     public string? SneakerId { get; set; }
     public int NumberOfItems { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(OrderId)}: {OrderId}, {nameof(Email)}: {Email}, {nameof(SneakerId)}: {SneakerId}, {nameof(NumberOfItems)}: {NumberOfItems}";
+    }
 }

@@ -46,7 +46,10 @@ app.MapGet("/occasions", async (ISneakerService service) => Results.Ok(await ser
 app.MapGet("/sneakers", async (ISneakerService service) => Results.Ok(await service.GetSneakers()));
 
 app.MapGet("/sneakers/{sneakerId}",
-    async (ISneakerService service, string sneakerId) => Results.Ok(await service.GetSneakerBySneakerId(sneakerId)));
+    async (ISneakerService service, string sneakerId) =>
+    {
+        return Results.Ok(await service.GetSneakerBySneakerId(sneakerId));
+    });
 
 app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sneakerValidator, Sneaker sneaker) =>
 {
@@ -54,13 +57,20 @@ app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sne
 
     if (validationResult.IsValid)
     {
-        return Results.Created("/registrations", await service.AddSneaker(sneaker));
+        var created = await service.AddSneaker(sneaker);
+        return Results.Created($"/sneaker/{created.SneakerId}", created);
     }
 
     var errors = validationResult.Errors.Select(x => new {errors = x.ErrorMessage});
     return Results.BadRequest(errors);
 });
 
-app.Run("http://localhost:3000");
+// app.Run("http://localhost:3000");
+
+
 //Hack om testen te doen werken 
-// public partial class Program { }
+app.Run();
+
+public partial class Program
+{
+}

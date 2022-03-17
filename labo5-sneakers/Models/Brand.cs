@@ -9,4 +9,9 @@ public class Brand
     [BsonRepresentation(BsonType.ObjectId)]
     public string? BrandId { get; set; }
     public string? Name { get; set; }
+
+    public override string ToString()
+    {
+        return $"{nameof(BrandId)}: {BrandId}, {nameof(Name)}: {Name}";
+    }
 }

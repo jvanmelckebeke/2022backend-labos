@@ -8,7 +8,7 @@ public interface IBrandRepository
 {
     Task<List<Brand>> GetBrands();
 
-    Task<List<Brand>> AddBrands(IEnumerable<Brand> brands);
+    Task<List<Brand>> AddBrands(List<Brand> brands);
 }
 
 public class BrandRepository : IBrandRepository
@@ -26,7 +26,7 @@ public class BrandRepository : IBrandRepository
     }
 
 
-    public async Task<List<Brand>> AddBrands(IEnumerable<Brand> brands)
+    public async Task<List<Brand>> AddBrands(List<Brand> brands)
     {
         var brandList = brands.ToList();
         await _collection.InsertManyAsync(brandList);

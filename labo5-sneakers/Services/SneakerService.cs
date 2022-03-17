@@ -3,21 +3,6 @@ using labo5_sneakers.Repositories;
 
 namespace labo5_sneakers.Services;
 
-public interface ISneakerService
-{
-    Task SetupData();
-
-    Task<List<Brand>> GetBrands();
-
-    Task<List<Occasion>> GetOccasions();
-
-    Task<List<Sneaker>> GetSneakers();
-
-    Task<Sneaker> AddSneaker(Sneaker sneaker);
-
-    Task<Sneaker> GetSneakerBySneakerId(string sneakerId);
-}
-
 public class SneakerService : ISneakerService
 {
     private readonly IBrandRepository _brandRepository;
@@ -52,6 +37,25 @@ public class SneakerService : ISneakerService
                     new() {Description = "Sports"}, new() {Description = "Casual"},
                     new() {Description = "Skate"}, new() {Description = "Diner"}
                 });
+            if (!(await _sneakerRepository.GetSneakers()).Any())
+            {
+                var brands = await _brandRepository.GetBrands();
+                var occasions = await _occasionRepository.GetOccasions();
+
+                var sneakers = new List<Sneaker>(){new()
+                {
+                    Brand = brands[4], Name = "Pursuit", Occasions = occasions.GetRange(0, 2),
+                    Price = new decimal(37.8), Stock = 50
+                },
+                    new()
+                    {
+                        Brand = brands[3], Name = "Smash v2", Occasions = occasions.GetRange(0, 3),
+                        Price = new decimal(38.45), Stock = 5
+                    }
+                };
+
+                await _sneakerRepository.AddSneakers(sneakers);
+            }
         }
         catch (Exception ex)
         {
@@ -83,5 +87,17 @@ public class SneakerService : ISneakerService
     public async Task<Sneaker> GetSneakerBySneakerId(string sneakerId)
     {
         return await _sneakerRepository.GetSneakerBySneakerId(sneakerId);
+    }
+
+    public async Task<Order> AddOrder(Order order)
+    {
+        await _orderRepository.AddOrder(order);
+
+        var sneaker = await GetSneakerBySneakerId(order.SneakerId);
+        sneaker.Stock -= order.NumberOfItems;
+
+        await _sneakerRepository.UpdateSneaker(sneaker);
+
+        return order;
     }
 }

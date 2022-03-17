@@ -8,6 +8,8 @@ public interface IOrderRepository
 {
     Task<List<Order>> GetOrders();
 
+    Task<Order> AddOrder(Order order);
+
 }
 
 public class OrderRepository : IOrderRepository
@@ -24,5 +26,10 @@ public class OrderRepository : IOrderRepository
         return await _collection.Find(_ => true).ToListAsync();
     }
 
+    public async Task<Order> AddOrder(Order order)
+    {
+        await _collection.InsertOneAsync(order);
 
+        return order;
+    }
 }

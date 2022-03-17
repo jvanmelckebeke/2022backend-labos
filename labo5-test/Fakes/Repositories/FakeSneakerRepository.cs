@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GreenDonut;
 using labo5_sneakers.Models;
 using labo5_sneakers.Repositories;
 
@@ -7,18 +9,22 @@ namespace labo5_test.Fakes.Repositories;
 
 public class FakeSneakerRepository : ISneakerRepository
 {
-    public Task<List<Sneaker>> GetSneakers()
+    private List<Sneaker> _sneakers = new List<Sneaker>();
+    
+    public async Task<List<Sneaker>> GetSneakers()
     {
-        throw new System.NotImplementedException();
+        return await Task.FromResult(_sneakers);
     }
 
-    public Task<Sneaker> GetSneakerBySneakerId(string sneakerId)
+    public async Task<Sneaker> GetSneakerBySneakerId(string sneakerId)
     {
-        throw new System.NotImplementedException();
+        return await Task.FromResult(_sneakers.Find(sneaker => sneaker.SneakerId == sneakerId));
     }
 
-    public Task<Sneaker> AddSneaker(Sneaker sneaker)
+    public async Task<Sneaker> AddSneaker(Sneaker sneaker)
     {
-        throw new System.NotImplementedException();
+        sneaker.SneakerId = Guid.NewGuid().ToString();
+        _sneakers.Add(sneaker);
+        return await Task.FromResult(sneaker);
     }
 }

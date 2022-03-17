@@ -7,13 +7,21 @@ namespace labo5_test.Fakes.Repositories;
 
 public class FakeBrandRepository : IBrandRepository
 {
-    public Task<List<Brand>> GetBrands()
+    public static List<Brand> _brands = new();
+    public Task<Brand> AddBrand(Brand brand)
     {
-        throw new System.NotImplementedException();
+        _brands.Add(brand);
+        return Task.FromResult(brand);
     }
 
-    public Task<List<Brand>> AddBrands(IEnumerable<Brand> brands)
+    public Task<List<Brand>> AddBrands(List<Brand> brands)
     {
-        throw new System.NotImplementedException();
+        _brands.AddRange(brands);
+        return Task.FromResult(brands);
+    }
+
+    public Task<List<Brand>> GetBrands()
+    {
+        return Task.FromResult(_brands);
     }
 }

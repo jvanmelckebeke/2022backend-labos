@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using labo5_sneakers.Configuration;
 using labo5_sneakers.Context;
+using labo5_sneakers.MiddleWare;
 using labo5_sneakers.Models;
 using labo5_sneakers.Repositories;
 using labo5_sneakers.Services;
@@ -9,9 +10,10 @@ using labo5_sneakers.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var dbsettings = builder.Configuration.GetSection("MongoConnection");
+var apikeySettings = builder.Configuration.GetSection("ApiKeySettings");
 
 builder.Services.Configure<DatabaseSettings>(dbsettings);
-
+builder.Services.Configure<ApiKeySettings>(apikeySettings);
 
 builder.Services.AddTransient<IMongoContext, MongoContext>();
 
@@ -29,7 +31,10 @@ builder.Services.AddFluentValidation(fv =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
+app.UseMiddleware<ApiKeyMiddleware>();
+
 app.MapSwagger();
 app.UseSwaggerUI();
 
@@ -82,12 +87,12 @@ app.MapPost("/orders",
             : Results.Ok(orderDone);
     });
 
-// app.Run("http://localhost:3000");
+app.Run("http://localhost:3000");
 
 
 //Hack om testen te doen werken 
-app.Run();
-
-public partial class Program
-{
-}
+// app.Run();
+//
+// public partial class Program
+// {
+// }

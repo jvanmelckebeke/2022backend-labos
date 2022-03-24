@@ -4,5 +4,5 @@ namespace labo5_sneakers.Services;
 
 public interface IStockNotificationService
 {
-    void CheckStockNotificationRules(Sneaker sneaker);
+    Dictionary<string, bool> CheckStockNotificationRules(Sneaker sneaker);
 }

@@ -65,7 +65,7 @@ public class UnitTests
         Assert.NotNull(sneakerResponse);
         Assert.Equal(4, sneakerResponse!.Stock);
     }
-    
+
     [Fact]
     public async Task Should_Place_Order()
     {
@@ -77,11 +77,11 @@ public class UnitTests
         };
 
         OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
-        
+
         Assert.NotNull(orderResponse);
         Assert.Equal("Order Success", orderResponse.Status);
     }
-    
+
     [Fact]
     public async Task Should_OutOfStock_Order()
     {
@@ -108,5 +108,74 @@ public class UnitTests
         };
         OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
         Assert.Null(orderResponse);
+    }
+
+    [Fact]
+    public Task Should_Fire_PumaNotification()
+    {
+        IStockNotificationService service = new StockNotificationService();
+
+        Dictionary<string, bool> notifsFired = service.CheckStockNotificationRules(new Sneaker()
+        {
+            Brand = new Brand()
+            {
+                BrandId = "999",
+                Name = "PUMA"
+            },
+            Name = "doesnt matter",
+            Occasions = new List<Occasion>(),
+            Price = 100,
+            SneakerId = "0",
+            Stock = 4
+        });
+
+        Assert.True(notifsFired["puma rule"]);
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public Task Should_Fire_ConverseNotification()
+    {
+        IStockNotificationService service = new StockNotificationService();
+
+        Dictionary<string, bool> notifsFired = service.CheckStockNotificationRules(new Sneaker()
+        {
+            Brand = new Brand()
+            {
+                BrandId = "999",
+                Name = "CONVERSE"
+            },
+            Name = "doesnt matter",
+            Occasions = new List<Occasion>(),
+            Price = 100,
+            SneakerId = "0",
+            Stock = 4
+        });
+
+        Assert.True(notifsFired["converse rule"]);
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public Task Should_Not_Fire_Notification()
+    {
+        IStockNotificationService service = new StockNotificationService();
+
+        Dictionary<string, bool> notifsFired = service.CheckStockNotificationRules(new Sneaker()
+        {
+            Brand = new Brand()
+            {
+                BrandId = "999",
+                Name = "dddd"
+            },
+            Name = "doesnt matter",
+            Occasions = new List<Occasion>(),
+            Price = 100,
+            SneakerId = "0",
+            Stock = 4
+        });
+
+        Assert.All(notifsFired.Values, b => Assert.False(b));
+        return Task.CompletedTask;
     }
 }

@@ -47,7 +47,7 @@ public class FakeSneakerRepository : ISneakerRepository
             Brand = new Brand()
             {
                 BrandId = "bbbbbb",
-                Name = "CONVERT"
+                Name = "CONVERSE"
             },
             Occasions = _occasions
         },

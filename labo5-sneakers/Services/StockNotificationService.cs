@@ -11,15 +11,20 @@ public class StockNotificationService : IStockNotificationService
         new PumaStockRule(), new ConverseStockRule()
     };
 
-    public void CheckStockNotificationRules(Sneaker sneaker)
+    public Dictionary<string, bool> CheckStockNotificationRules(Sneaker sneaker)
     {
+        Dictionary<string, bool> notifsFired = new Dictionary<string, bool>();
         foreach (IStockRule rule in _stockRules)
         {
-            if (rule.IsApplicable(sneaker))
+            var applicable = rule.IsApplicable(sneaker);
+            notifsFired.Add(rule.RuleName, applicable);
+            if (applicable)
             {
                 rule.DoAction(sneaker);
                 Console.WriteLine($"done action for {rule.RuleName}");
             }
         }
+
+        return notifsFired;
     }
 }

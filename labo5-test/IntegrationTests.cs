@@ -137,7 +137,7 @@ public class IntegrationTests
         {
             Email = "test@test.be",
             NumberOfItems = 2,
-            SneakerId = "0123-456"
+            SneakerId = "0123-457"
         };
 
         HttpContent body = JsonContent.Create(order);
@@ -149,7 +149,7 @@ public class IntegrationTests
         result.StatusCode.Should().Be(HttpStatusCode.OK);
         Assert.Equal("Order Success", created.Status);
     }
-    
+
     [Fact]
     public async Task Should_OutOfStock_Order()
     {

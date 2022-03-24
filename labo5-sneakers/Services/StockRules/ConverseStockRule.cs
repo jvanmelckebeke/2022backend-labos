@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using labo5_sneakers.Models;
 
 namespace labo5_sneakers.Services.StockRules;
@@ -11,8 +12,12 @@ public class ConverseStockRule : IStockRule
         return sneaker.Brand?.Name == "CONVERSE" && sneaker.Stock < 50;
     }
 
-    public void DoAction(Sneaker sneaker)
+    public async Task DoAction(Sneaker sneaker)
     {
+        
+        var line = $"[{DateTime.Now.ToString("s")}] CONVERSE stock notification for sneaker {sneaker.SneakerId}, current stock: {sneaker.Stock}";
+        await File.AppendAllLinesAsync("/tmp/saleslog.log", new[] {line});
+        
         Console.WriteLine($"writing stock file to CONVERSE brand for sneaker {sneaker.SneakerId}");
     }
 }

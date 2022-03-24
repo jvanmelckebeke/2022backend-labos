@@ -7,5 +7,5 @@ public interface IStockRule
     String RuleName { get; }
     bool IsApplicable(Sneaker sneaker);
 
-    void DoAction(Sneaker sneaker);
+    Task DoAction(Sneaker sneaker);
 }

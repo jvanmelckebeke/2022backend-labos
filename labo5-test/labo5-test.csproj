@@ -6,13 +6,13 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
-        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <PreserveCompilationContext>false</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../labo5-sneakers/labo5-sneakers.csproj" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-        <PackageReference Include="xunit" Version="2.4.1" />
+        <ProjectReference Include="../labo5-sneakers/labo5-sneakers.csproj"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -21,8 +21,8 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="6.5.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.2" />
+        <PackageReference Include="FluentAssertions" Version="6.5.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.2"/>
     </ItemGroup>
 
 </Project>

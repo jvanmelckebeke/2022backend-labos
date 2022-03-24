@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
+using labo5_sneakers.DTO;
 using labo5_sneakers.Models;
 using labo5_sneakers.Services;
 using labo5_test.Helpers;
@@ -20,7 +18,7 @@ public class UnitTests
     }
 
     [Fact]
-    public async Task Should_Place_Order()
+    public async Task Should_Reduce_Stock_On_Order()
     {
         Sneaker sneaker = new()
         {
@@ -57,13 +55,58 @@ public class UnitTests
             SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8d"
         };
 
-        Order orderResponse = await _sneakerService.AddOrder(order);
+        OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
 
         Assert.NotNull(orderResponse);
+        Assert.Equal("Order Success", orderResponse.Status);
 
-        Sneaker sneakerResponse = await _sneakerService.GetSneakerBySneakerId(sneaker.SneakerId);
+        Sneaker? sneakerResponse = await _sneakerService.GetSneakerBySneakerId(sneaker.SneakerId);
 
         Assert.NotNull(sneakerResponse);
-        Assert.Equal(4, sneakerResponse.Stock);
+        Assert.Equal(4, sneakerResponse!.Stock);
+    }
+    
+    [Fact]
+    public async Task Should_Place_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2,
+            SneakerId = "0123-456"
+        };
+
+        OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
+        
+        Assert.NotNull(orderResponse);
+        Assert.Equal("Order Success", orderResponse.Status);
+    }
+    
+    [Fact]
+    public async Task Should_OutOfStock_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2999,
+            SneakerId = "0123-456"
+        };
+
+        OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
+        Assert.NotNull(orderResponse);
+        Assert.Equal("Out of stock", orderResponse.Status);
+    }
+
+    [Fact]
+    public async Task Should_404_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2,
+            SneakerId = "0123-4569999"
+        };
+        OrderResponse? orderResponse = await _sneakerService.AddOrder(order);
+        Assert.Null(orderResponse);
     }
 }

@@ -10,6 +10,7 @@ namespace labo5_test.Helpers;
 
 public class Helper
 {
+    
     public static WebApplicationFactory<Program> CreateApi()
     {
         var application = new WebApplicationFactory<Program>()

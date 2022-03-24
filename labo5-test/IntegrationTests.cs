@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
+using GreenDonut;
+using labo5_sneakers.DTO;
 using labo5_sneakers.Models;
 using labo5_test.Helpers;
 using Xunit;
@@ -20,7 +22,7 @@ public class IntegrationTests
 
     Sneaker _sneakerValid = new()
     {
-        SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8c", 
+        SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8c",
         Name = "Pursuit",
         Price = new decimal(37.8),
         Stock = 500,
@@ -135,15 +137,52 @@ public class IntegrationTests
         {
             Email = "test@test.be",
             NumberOfItems = 2,
-            SneakerId = "a51cffc3-55e4-4762-bee3-6a36e0456c8d"
+            SneakerId = "0123-456"
+        };
+
+        HttpContent body = JsonContent.Create(order);
+
+
+        var result = await _client.PostAsync("/orders", body);
+        var resultBody = await result.Content.ReadAsStringAsync();
+        var created = await result.Content.ReadFromJsonAsync<OrderResponse>();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal("Order Success", created.Status);
+    }
+    
+    [Fact]
+    public async Task Should_OutOfStock_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2999,
+            SneakerId = "0123-456"
+        };
+
+        HttpContent body = JsonContent.Create(order);
+
+
+        var result = await _client.PostAsync("/orders", body);
+        var resultBody = await result.Content.ReadAsStringAsync();
+        var created = await result.Content.ReadFromJsonAsync<OrderResponse>();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        Assert.Equal("Out of stock", created.Status);
+    }
+
+    [Fact]
+    public async Task Should_404_Order()
+    {
+        Order order = new Order()
+        {
+            Email = "test@test.be",
+            NumberOfItems = 2,
+            SneakerId = "0123-4569999"
         };
 
         HttpContent body = JsonContent.Create(order);
 
         var result = await _client.PostAsync("/orders", body);
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
-        var resultBody = await result.Content.ReadAsStringAsync();
-        _testOutputHelper.WriteLine(result.ToString());
-        _testOutputHelper.WriteLine(resultBody);
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }

@@ -12,7 +12,7 @@ public interface IMongoContext
     IMongoCollection<Sneaker> SneakerCollection { get; }
     IMongoCollection<Brand> BrandsCollection { get; }
     IMongoCollection<Occasion> OccasionCollection { get; }
-    IMongoCollection<Order?> OrdersCollection { get; }
+    IMongoCollection<Order> OrdersCollection { get; }
 }
 
 public class MongoContext : IMongoContext
@@ -41,5 +41,5 @@ public class MongoContext : IMongoContext
 
     public IMongoCollection<Occasion> OccasionCollection => _database.GetCollection<Occasion>(_settings.OccasionCollection);
 
-    public IMongoCollection<Order?> OrdersCollection => _database.GetCollection<Order>(_settings.OrdersCollection);
+    public IMongoCollection<Order> OrdersCollection => _database.GetCollection<Order>(_settings.OrdersCollection);
 }

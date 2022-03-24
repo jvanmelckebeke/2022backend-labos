@@ -21,11 +21,8 @@ builder.Services.AddTransient<IOccasionRepository, OccasionRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
 builder.Services.AddTransient<ISneakerService, SneakerService>();
-builder.Services.AddTransient<IStockNotificationService, StockNotificationService>();
-
 builder.Services.AddFluentValidation(fv =>
     fv.RegisterValidatorsFromAssemblyContaining<SneakerRepository>());
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -51,11 +48,7 @@ app.MapGet("/sneakers", async (ISneakerService service) => Results.Ok(await serv
 app.MapGet("/sneakers/{sneakerId}",
     async (ISneakerService service, string sneakerId) =>
     {
-        var sneaker = await service.GetSneakerBySneakerId(sneakerId);
-
-        return sneaker != null
-            ? Results.Ok(await service.GetSneakerBySneakerId(sneakerId))
-            : Results.NotFound(sneakerId);
+        return Results.Ok(await service.GetSneakerBySneakerId(sneakerId));
     });
 
 app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sneakerValidator, Sneaker sneaker) =>
@@ -73,14 +66,7 @@ app.MapPost("/sneakers", async (ISneakerService service, IValidator<Sneaker> sne
 });
 
 app.MapPost("/orders",
-    async (ISneakerService service, Order order) =>
-    {
-        var orderDone = await service.AddOrder(order);
-
-        return orderDone == null
-            ? Results.NotFound(order.SneakerId)
-            : Results.Ok(orderDone);
-    });
+    async (ISneakerService service, Order order) => { return Results.Ok(await service.AddOrder(order)); });
 
 // app.Run("http://localhost:3000");
 

@@ -1,4 +1,3 @@
-using labo5_sneakers.DTO;
 using labo5_sneakers.Models;
 using labo5_sneakers.Repositories;
 
@@ -10,17 +9,14 @@ public class SneakerService : ISneakerService
     private readonly IOccasionRepository _occasionRepository;
     private readonly ISneakerRepository _sneakerRepository;
     private readonly IOrderRepository _orderRepository;
-    private readonly IStockNotificationService _stockNotificationService;
 
     public SneakerService(IBrandRepository brandRepository, IOccasionRepository occasionRepository,
-        ISneakerRepository sneakerRepository, IOrderRepository orderRepository,
-        IStockNotificationService stockNotificationService)
+        ISneakerRepository sneakerRepository, IOrderRepository orderRepository)
     {
         _brandRepository = brandRepository;
         _occasionRepository = occasionRepository;
         _sneakerRepository = sneakerRepository;
         _orderRepository = orderRepository;
-        _stockNotificationService = stockNotificationService;
     }
 
 
@@ -46,13 +42,11 @@ public class SneakerService : ISneakerService
                 var brands = await _brandRepository.GetBrands();
                 var occasions = await _occasionRepository.GetOccasions();
 
-                var sneakers = new List<Sneaker>()
+                var sneakers = new List<Sneaker>(){new()
                 {
-                    new()
-                    {
-                        Brand = brands[4], Name = "Pursuit", Occasions = occasions.GetRange(0, 2),
-                        Price = new decimal(37.8), Stock = 50
-                    },
+                    Brand = brands[4], Name = "Pursuit", Occasions = occasions.GetRange(0, 2),
+                    Price = new decimal(37.8), Stock = 50
+                },
                     new()
                     {
                         Brand = brands[3], Name = "Smash v2", Occasions = occasions.GetRange(0, 3),
@@ -90,39 +84,21 @@ public class SneakerService : ISneakerService
         return await _sneakerRepository.AddSneaker(sneaker);
     }
 
-    public async Task<Sneaker?> GetSneakerBySneakerId(string sneakerId)
+    public async Task<Sneaker> GetSneakerBySneakerId(string sneakerId)
     {
         return await _sneakerRepository.GetSneakerBySneakerId(sneakerId);
     }
 
-    public async Task<OrderResponse?> AddOrder(Order? order)
+    public async Task<Order> AddOrder(Order order)
     {
-        var sneaker = await GetSneakerBySneakerId(order.SneakerId);
-
-        if (sneaker is null) return null;
-
-        if (sneaker.Stock < order.NumberOfItems)
-        {
-            return new OrderResponse
-            {
-                Order = order,
-                Status = "Out of stock"
-            };
-        }
-
         await _orderRepository.AddOrder(order);
 
+        var sneaker = await GetSneakerBySneakerId(order.SneakerId);
+        
         sneaker.Stock -= order.NumberOfItems;
 
         await _sneakerRepository.UpdateSneaker(sneaker);
 
-        _stockNotificationService.CheckStockNotificationRules(sneaker);
-
-
-        return new OrderResponse
-        {
-            Order = order,
-            Status = "Order Success"
-        };
+        return order;
     }
 }

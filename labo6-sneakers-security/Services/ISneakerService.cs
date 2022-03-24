@@ -1,4 +1,3 @@
-using labo5_sneakers.DTO;
 using labo5_sneakers.Models;
 
 namespace labo5_sneakers.Services;
@@ -15,7 +14,7 @@ public interface ISneakerService
 
     Task<Sneaker> AddSneaker(Sneaker sneaker);
 
-    Task<OrderResponse?> AddOrder(Order? order);
+    Task<Order> AddOrder(Order order);
 
-    Task<Sneaker?> GetSneakerBySneakerId(string sneakerId);
+    Task<Sneaker> GetSneakerBySneakerId(string sneakerId);
 }

@@ -1,22 +1,72 @@
+###
+POST /authenticate HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "username": "boop",
+  "password": "nog meer boop"
+}
+
+> {% client.global.set("auth_token", response.body.toString()); client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, `Response status is not 200, but ` + response.status);
+});
+%}
+
+###
+
 GET /setup HTTP/1.1
 Host: localhost:3000
+Authorization: Bearer {{auth_token}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, `Response status is not 201, but ` + response.status);
+});
+%}
 
 ###
 GET /brands HTTP/1.1
 Host: localhost:3000
+Authorization: Bearer {{auth_token}}
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, `Response status is not 200, but ` + response.status);
+});
+%}
+
+
 
 ###
 GET /sneakers HTTP/1.1
 Host: localhost:3000
+Authorization: Bearer {{auth_token}}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, `Response status is not 200, but ` + response.status);
+});
+%}
 
 ###
 GET /occasions HTTP/1.1
 Host: localhost:3000
+Authorization: Bearer {{auth_token}}
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, `Response status is not 200, but ` + response.status);
+});
+%}
 
 ###
 POST /sneakers HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 {
   "name": "Pursuit",
@@ -37,3 +87,10 @@ Content-Type: application/json
     }
   ]
 }
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, `Response status is not 201, but ` + response.status);
+});
+%}

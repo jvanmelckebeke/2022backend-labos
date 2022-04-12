@@ -12,12 +12,11 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 var dbsettings = builder.Configuration.GetSection("MongoConnection");
-var authenticationSettings = builder.Configuration.GetSection("AuthenticationSettings");
 
-builder.Services.Configure<DatabaseSettings>(dbsettings);
+var authenticationSettings = builder.Configuration.GetSection("AuthenticationSettings");
 builder.Services.Configure<AuthenticationSettings>(authenticationSettings);
 
-
+builder.Services.Configure<DatabaseSettings>(dbsettings);
 builder.Services.AddTransient<IMongoContext, MongoContext>();
 
 builder.Services.AddTransient<IBrandRepository, BrandRepository>();
@@ -38,7 +37,7 @@ builder.Services.AddSwaggerGen();
 
 // builder.Services.AddAuthentication();
 
-builder.Services.AddAuthorization(options =>{});
+builder.Services.AddAuthorization(options => {});
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options=>
     {
